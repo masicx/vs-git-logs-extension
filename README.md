@@ -8,14 +8,14 @@ Generate the logs for the workspace folders.
 
 For example:
 
-![command](assets/image.png)
+![command](https://github.com/masicx/vs-git-logs-extension/raw/master/assets/image.png)
 
 The date can be any value defined in [git documentation](https://git-scm.com/docs/git-log#Documentation/git-log.txt---sinceltdategt)
-![date where it is going to start](assets/image2.png)
+![date where it is going to start](https://github.com/masicx/vs-git-logs-extension/raw/master/assets/image2.png)
 
-![alt text](assets/image3.png)
+![alt text](https://github.com/masicx/vs-git-logs-extension/raw/master/assets/image3.png)
 
-![alt text](assets/image4.png)
+![alt text](https://github.com/masicx/vs-git-logs-extension/raw/master/assets/image4.png)
 
 ## Requirements
 
