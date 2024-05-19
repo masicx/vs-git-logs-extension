@@ -26,29 +26,42 @@ export function activate(context: vscode.ExtensionContext) {
 function runPython(since: String) {
 	// start a python process with a command to generate the git log
 	console.log(`Generating report for ${since}`);
-	console.log(`PYTHON PATH: "${__dirname}/../python/"`);
-	console.log(`WORKSPACE PATH: "${vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath}"`);
+	var pythonPath = `${__dirname}\\git-logs.py`.replaceAll('\\', '/');
+	console.log(`PYTHON PATH: "${pythonPath}"`);
 
+	const paths = vscode.workspace.workspaceFolders?.[0]?.uri?.path.replace('/', ''); // remove the first '/'
+	console.log(`WORKSPACE PATH: "${paths}"`);
 
-	const pythonProcess = spawn('python', [
+	const command = `
+import os;
+os.system("py ${pythonPath} '${since}' -d ${paths}/../")`
+	console.log(`COMMAND: ${command}`);
+	vscode.window.showInformationMessage("Generating logs...");
+
+	const pythonProcess = spawn('py', [
 		'-c',
-		`import os;
-		os.system("py ./python/git-logs.py '${since}' -d "'${vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath}'/../"")`
+		command
 	]);
 
 	pythonProcess.stdout.on('data', (data) => {
-		vscode.window.showInformationMessage(data.toString());
+		console.log(data.toString());
 	});
 
 	pythonProcess.stderr.on('data', (data) => {
 		vscode.window.showErrorMessage(data.toString());
 	});
 
-	pythonProcess.on('close', (code) => {
+	pythonProcess.on('close', async (code) => {
 		if (code !== 0) {
 			vscode.window.showErrorMessage('Error generating report');
 		}
+
+		vscode.window.showInformationMessage('Report generated');
+		const generatedFilePath = `${paths}/../gitlogs.csv`; // Replace with the actual path to the generated file
+		const doc = await vscode.workspace.openTextDocument(generatedFilePath);
+		vscode.window.showTextDocument(doc);
 	});
+
 }
 
 export function deactivate() { }

@@ -1,6 +1,5 @@
 import subprocess
 
-
 class GitProcess:
     def __init__(self, repo) -> None:
         self.repo = repo

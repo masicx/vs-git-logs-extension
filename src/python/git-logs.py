@@ -1,4 +1,5 @@
 import os
+import platform
 import re
 from author import Author
 from details import Details
@@ -137,8 +138,6 @@ for repository in repositories:
             currentDetails.comments += " ".join(splittedLine) + " "
 
 print("Creating CSV file")
-createCsv("gitlogs.csv", authorsPerRepo, config["csv_config"])
-import subprocess
+filepath = root + "/" + "gitlogs.csv"
+createCsv(filepath, authorsPerRepo, config["csv_config"])
 
-openFileCmd = "start " + "gitlogs.csv" if os.name == "nt" else "xdg-open " + "gitlogs.csv"
-subprocess.run([openFileCmd])
