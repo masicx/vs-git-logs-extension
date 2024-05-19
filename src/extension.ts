@@ -11,12 +11,15 @@ export function activate(context: vscode.ExtensionContext) {
 	const disposable = vscode.commands.registerCommand('git-logs-extension.gitReport', () => {
 		vscode.window
 			.showInputBox({
-				placeHolder: 'Enter a date in the format YYYY-MM-DD'
+				placeHolder: 'Enter a date in the format YYYY-MM-DD',
+				value: vscode.workspace.getConfiguration('git-logs-extension').get('since') as string,
 			})
 			.then((value) => {
-				if (value) {
-					runPython(value);
+				if (!value) {
+					vscode.window.showErrorMessage('Please enter a date. Operation cancelled.');
+					return;
 				}
+				runPython(value);
 			})
 	});
 
@@ -28,13 +31,22 @@ function runPython(since: String) {
 	console.log(`Generating report for ${since}`);
 	var pythonPath = `${__dirname}\\git-logs.py`.replaceAll('\\', '/');
 	console.log(`PYTHON PATH: "${pythonPath}"`);
+	if (!vscode.workspace.workspaceFolders) {
+		vscode.window.showErrorMessage('No workspace found');
+		return;
+	}
 
-	const paths = vscode.workspace.workspaceFolders?.[0]?.uri?.path.replace('/', ''); // remove the first '/'
+	const paths = vscode.workspace.workspaceFolders.map(p => p.uri?.path.replace('/', '')); // remove the first '/'
 	console.log(`WORKSPACE PATH: "${paths}"`);
+	let authorCommand = vscode.workspace.getConfiguration('git-logs-extension').get('author') as string;
+
+	if (authorCommand) {
+		authorCommand = " -a " + authorCommand;
+	}
 
 	const command = `
 import os;
-os.system("py ${pythonPath} '${since}' -d ${paths}/../")`
+os.system("py ${pythonPath} '${since}' -d ${paths.join(' ')} ${authorCommand}");`
 	console.log(`COMMAND: ${command}`);
 	vscode.window.showInformationMessage("Generating logs...");
 
@@ -54,10 +66,11 @@ os.system("py ${pythonPath} '${since}' -d ${paths}/../")`
 	pythonProcess.on('close', async (code) => {
 		if (code !== 0) {
 			vscode.window.showErrorMessage('Error generating report');
+			return;
 		}
 
 		vscode.window.showInformationMessage('Report generated');
-		const generatedFilePath = `${paths}/../gitlogs.csv`; // Replace with the actual path to the generated file
+		const generatedFilePath = `${paths[0]}/gitlogs.csv`; // Replace with the actual path to the generated file
 		const doc = await vscode.workspace.openTextDocument(generatedFilePath);
 		vscode.window.showTextDocument(doc);
 	});

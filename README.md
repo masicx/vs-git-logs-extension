@@ -25,18 +25,14 @@ As optional you may use some extensions to make easier to read CSV files.
 
 ## Extension Settings
 
-Soon...
+Default author: if this value is set, the git logs will be filter by this value. If not, the logs will be generated for all the developers.
+
+Default since: this value is to help to fill the prompt.
 
 ## Known Issues
 
-Only generates the logs for the first workspace folder.
 
-The file is generated in the parent folder.
 
 ## Release Notes
 
-Initial release.
-
-### 0.0.1
-
-Generates the csv file with the changes for each developer of the current workspace folder (just one folder for now) ...
+See [CHANGELOG.md](CHANGELOG.md)

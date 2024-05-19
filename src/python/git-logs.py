@@ -37,35 +37,22 @@ parser.add_argument(
     "-s", "--send", action="store_true", help="Specifies if an email should be sent once is created"
 )
 parser.add_argument("-v", "--verbose", action="store_true", help="Increase verbosity")
-parser.add_argument("-d", "--directory", help="Path to git repositories")
+parser.add_argument("-d", "--directory", help="Path to git repositories",nargs="+")
 parser.add_argument("since", help="Starting date for getting logs. Ex: \"today\" or \"yesterday\" or \"April 20, 2023\" or \"2023-08-01\"")
 parser.add_argument("--csv-config", help="CSV config file path. Ex: \"csv.yaml\"")
 
 args = parser.parse_args()
 config = vars(args)
 
-
-root = (
-    os.getcwd()
-    if not (config["directory"] and config["directory"].strip())
-    else config["directory"]
-)
-
 config["csv_config"] = ("csv.yaml"
     if not (config["csv_config"] and config["csv_config"].strip())
     else config["csv_config"])
-printVerbose(root, config["verbose"])
 
-repositories = [
-    item for item in os.listdir(root) if os.path.isdir(os.path.join(root, item))
-]
 authorsPerRepo = {}
 
-
-for repository in repositories:
+for repository in config["directory"]:
     print("Updating local branches for {}".format(repository))
-    gitRepo = "{}/{}".format(root, repository)
-    process = GitProcess(gitRepo)
+    process = GitProcess(repository)
 
     printVerbose(process.GetRemoteBranches(), config["verbose"])
     process.Fetch(True)
@@ -138,6 +125,7 @@ for repository in repositories:
             currentDetails.comments += " ".join(splittedLine) + " "
 
 print("Creating CSV file")
-filepath = root + "/" + "gitlogs.csv"
+filepath = config["directory"][0] + "/" + "gitlogs.csv"
+printVerbose(filepath, config["verbose"])
 createCsv(filepath, authorsPerRepo, config["csv_config"])
 

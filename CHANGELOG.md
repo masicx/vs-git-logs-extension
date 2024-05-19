@@ -1,9 +1,15 @@
 # Change Log
 
-All notable changes to the "git-logs-extension" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
 ## [Unreleased]
+
+### Added
+
+- v0.1.0 Configuration for default 'since' date
+- v0.1.0 Configuration for default author
+
+### Fix error when the user doesn't set a 'since' date
+
+- v0.1.0 Process all workspace folders.
+
 
 - Initial release
