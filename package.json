@@ -1,5 +1,5 @@
 {
-  "name": "git-logs-report",
+  "name": "git-logs-extension",
   "displayName": "git logs report",
   "description": "Pull the changes and generates the logs for all the developers. Use a default yml file to configurate the output.",
   "version": "0.0.1",
@@ -14,7 +14,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "git-logs-report.gitReport",
+        "command": "git-logs-extension.gitReport",
         "title": "Git Logs Report"
       }
     ]

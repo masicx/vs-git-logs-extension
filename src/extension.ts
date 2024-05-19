@@ -6,9 +6,9 @@ import * as vscode from 'vscode';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "git-logs-report" is now active!');
+	console.log('Congratulations, your extension "git-logs-extension" is now active!');
 
-	const disposable = vscode.commands.registerCommand('git-logs-report.gitReport', () => {
+	const disposable = vscode.commands.registerCommand('git-logs-extension.gitReport', () => {
 		vscode.window
 			.showInputBox({
 				placeHolder: 'Enter a date in the format YYYY-MM-DD'
