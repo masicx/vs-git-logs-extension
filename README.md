@@ -1,71 +1,42 @@
-# git-logs-report README
+# git-logs-extension README
 
-This is the README for your extension "git-logs-report". After writing up a brief description, we recommend including the following sections.
+Generate the logs for all the developers. Use a default yml file to configurate the output.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Generate the logs for the workspace folders.
 
 For example:
 
-This extension contributes the following settings:
+![command](assets/image.png)
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+The date can be any value defined in [git documentation](https://git-scm.com/docs/git-log#Documentation/git-log.txt---sinceltdategt)
+![date where it is going to start](assets/image2.png)
+
+![alt text](assets/image3.png)
+
+![alt text](assets/image4.png)
+
+## Requirements
+
+Install python and git.
+
+As optional you may use some extensions to make easier to read CSV files.
+
+## Extension Settings
+
+Soon...
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Only generates the logs for the first workspace folder.
+
+The file is generated in the parent folder.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Initial release.
 
-### 1.0.0
+### 0.0.1
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Generates the csv file with the changes for each developer of the current workspace folder (just one folder for now) ...
