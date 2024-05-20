@@ -2,7 +2,8 @@
   "name": "git-logs-extension",
   "displayName": "git logs extension",
   "description": "Pull the changes and generates the logs for all the developers. Use a default yml file to configurate the output.",
-  "version": "0.1.0",
+  "version": "0.1.2",
+  "icon": "assets/icon.jpeg",
   "engines": {
     "vscode": "^1.89.0"
   },
