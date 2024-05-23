@@ -4,7 +4,7 @@
 
 ### Fix
 
-- v0.1.3 Python alias is not working in Mac
+- v0.1.4 Python alias is not working in Mac
 
 ### Added
 

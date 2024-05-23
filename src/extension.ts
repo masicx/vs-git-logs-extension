@@ -44,9 +44,14 @@ function runPython(since: String) {
 		authorCommand = " -a " + authorCommand;
 	}
 
+	let pythonAlias = 'py';
+	// check for os version, if os is mac then use py3 instead of py
+	if (process.platform === 'darwin') {
+		pythonAlias = 'py3';
+	}
 	const command = `
 import os;
-os.system("py3 ${pythonPath} '${since}' -d ${paths.join(' ')} ${authorCommand}");`
+os.system("${pythonAlias} ${pythonPath} '${since}' -d ${paths.join(' ')} ${authorCommand}");`
 	console.log(`COMMAND: ${command}`);
 	vscode.window.showInformationMessage("Generating logs...");
 
