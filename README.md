@@ -19,7 +19,7 @@ The date can be any value defined in [git documentation](https://git-scm.com/doc
 
 ## Requirements
 
-Install python and git.
+Install python 3 and git.
 
 As optional you may use some extensions to make easier to read CSV files.
 
@@ -35,4 +35,4 @@ Default since: this value is to help to fill the prompt.
 
 ## Release Notes
 
-See [CHANGELOG.md](CHANGELOG.md)
+See [CHANGELOG.md](https://raw.githubusercontent.com/masicx/vs-git-logs-extension/master/CHANGELOG.md)

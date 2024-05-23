@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fix
+
+- v0.1.3 Python alias is not working in Mac
+
 ### Added
 
 - v0.1.0 Configuration for default 'since' date

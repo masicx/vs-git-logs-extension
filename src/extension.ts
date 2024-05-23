@@ -46,7 +46,7 @@ function runPython(since: String) {
 
 	const command = `
 import os;
-os.system("py ${pythonPath} '${since}' -d ${paths.join(' ')} ${authorCommand}");`
+os.system("py3 ${pythonPath} '${since}' -d ${paths.join(' ')} ${authorCommand}");`
 	console.log(`COMMAND: ${command}`);
 	vscode.window.showInformationMessage("Generating logs...");
 
