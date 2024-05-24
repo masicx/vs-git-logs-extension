@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.0.0] - 2022-11-17
+
+- Initial release of the extension for git logs.
+- Process all workspace folders.
+- Configuration for default 'since' date
+- Configuration for default author
+- Configuration for default 'until' date
+- Configuration for default CSV columns
+- Removed dependencies of python.
+
 ## [Unreleased]
 
 ### Fix
