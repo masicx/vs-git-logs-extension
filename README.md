@@ -31,7 +31,7 @@ Default since: this value is to help to fill the prompt.
 
 ## Known Issues
 
-
+- Not working for Mac (and maybe linux too).
 
 ## Release Notes
 
