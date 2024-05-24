@@ -45,13 +45,7 @@ const extensionConfig = {
   infrastructureLogging: {
     level: "log", // enables logging required for problem matchers
   },
-  plugins: [
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: './src/python' } // Change 'static' to your source folder
-      ]
-    })
-  ]
+  plugins: []
 };
 
 module.exports = [extensionConfig];
