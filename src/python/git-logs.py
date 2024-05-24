@@ -20,34 +20,6 @@ def getAuthorsEmails(authorsPerRepository) -> str:
     return authorsEmails
 
 
-parser = argparse.ArgumentParser(
-    description="Get git logs and save them into a CSV file",
-    formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-)
-parser.add_argument(
-    "-u",
-    "--until",
-    help="Starting date for getting logs. If is not specified, \"today\" will be used",
-)
-parser.add_argument("-a", "--authors", help="List of developers will get the logs")
-parser.add_argument(
-    "-e", "--email", action="store_true", help="Specifies if an email should be created"
-)
-parser.add_argument(
-    "-s", "--send", action="store_true", help="Specifies if an email should be sent once is created"
-)
-parser.add_argument("-v", "--verbose", action="store_true", help="Increase verbosity")
-parser.add_argument("-d", "--directory", help="Path to git repositories",nargs="+")
-parser.add_argument("since", help="Starting date for getting logs. Ex: \"today\" or \"yesterday\" or \"April 20, 2023\" or \"2023-08-01\"")
-parser.add_argument("--csv-config", help="CSV config file path. Ex: \"csv.yaml\"")
-
-args = parser.parse_args()
-config = vars(args)
-
-config["csv_config"] = ("csv.yaml"
-    if not (config["csv_config"] and config["csv_config"].strip())
-    else config["csv_config"])
-
 authorsPerRepo = {}
 
 for repository in config["directory"]:
