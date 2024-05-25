@@ -1,6 +1,17 @@
 # Change Log
 
-## [1.0.0] - 2022-11-17
+## [1.1.1] - 2024-05-25
+
+### Added
+
+- Added new configuration for opening the generated CSV file
+
+### Fix
+
+- Fix error when deletions count is showing NaN in the report
+- Fix error when comments is displaying ' -   -' in the report
+
+## [1.0.0] - 2024-05-24
 
 - Initial release of the extension for git logs.
 - Process all workspace folders.

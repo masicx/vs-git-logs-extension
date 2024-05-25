@@ -26,6 +26,9 @@ As optional you may use some extensions to make easier to read CSV files.
 ## Extension Settings
 
 ![alt text](https://github.com/masicx/vs-git-logs-extension/raw/master/assets/image.png)
+
+1. Open generated CSV file: if this value is set, the generated CSV file will be opened. By default, it will be opened.
+
 1. Default author: if this value is set, the git logs will be filter by this value. If not, the logs will be generated for all the developers.
 
 1. Default since: this value is to help to fill the prompt.

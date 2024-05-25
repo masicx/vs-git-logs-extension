@@ -20,6 +20,8 @@ export function activate(context: vscode.ExtensionContext) {
 					vscode.window.showErrorMessage('Please enter a date. Operation cancelled.');
 					return;
 				}
+
+				vscode.window.showInformationMessage('Generating report...');
 				runScript(value);
 			})
 	});
@@ -47,6 +49,13 @@ function runScript(since: string) {
 		directory: paths,
 		verbose: true,
 		csv_config: vscode.workspace.getConfiguration('git-logs-extension').get('csvColumns')}).execute();
+
+	vscode.window.showInformationMessage('Report generated');
+	const generatedFilePath = `${paths[0]}/gitlogs.csv`; // Replace with the actual path to the generated file
+	if (vscode.workspace.getConfiguration('git-logs-extension').get('openGeneratedCSV') as boolean) {
+		vscode.workspace.openTextDocument(generatedFilePath).then(doc => vscode.window.showTextDocument(doc));
+	}
+
 }
 
 export function deactivate() { }

@@ -62,7 +62,7 @@ export class GitLogs {
             let readComments = false;
 
             for (const line of output.split('\n')) {
-                const splittedLine = line.replace(/\| /g, '').trim().split(' ');
+                const splittedLine = line.replace(/| /g, '').trim().split(' ');
                 if (/^commit/g.test(line.replace(/b'/g, ''))) {
                     currentBranch = splittedLine[1].split('\t')[1].replace('refs/heads/', '');
                     this.printVerbose(`line: ${line}`, this.config.verbose);
@@ -98,10 +98,10 @@ export class GitLogs {
 
                 if (/^[0-9]+\t/g.test(splittedLine[0])) {
                     readComments = false;
-                    splittedLine[0] = splittedLine[0].replace(/\t/g, '');
+                    const changes = splittedLine[0].split(/\t/g);
                     currentDetails.filesChanged += 1;
-                    currentDetails.insertions += parseInt(splittedLine[0], 10);
-                    currentDetails.deletions += parseInt(splittedLine[1], 10);
+                    currentDetails.insertions += parseInt(changes[0], 10);
+                    currentDetails.deletions += parseInt(changes[1], 10);
                     continue;
                 }
 
@@ -112,6 +112,7 @@ export class GitLogs {
 
                 if (readComments && splittedLine.length > 0) {
                     currentDetails.comments += splittedLine.join(' ') + ' ';
+                    currentDetails.comments = currentDetails.comments.replace(' -	-', ' -');
                 }
             }
         }

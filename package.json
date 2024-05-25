@@ -2,7 +2,7 @@
   "name": "git-logs-extension",
   "displayName": "git logs extension",
   "description": "Pull the changes and generates the logs for all the developers. Use a default yml file to configurate the output.",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "icon": "assets/icon.jpeg",
   "engines": {
     "vscode": "^1.89.0"
@@ -56,6 +56,11 @@
             "Total # of commits": "commits"
           },
           "description": "CSV columns"
+        },
+        "git-logs-extension.openGeneratedCSV": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show generated CSV"
         }
       }
     }
