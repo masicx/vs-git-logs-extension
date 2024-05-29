@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.1.2] - 2024-05-29
+
+### Fix
+
+- Removed the path for the repository name in the generated CSV file.
+- Commas are removed from commit message to avoid representation errors.
+
 ## [1.1.1] - 2024-05-25
 
 ### Added

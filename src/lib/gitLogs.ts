@@ -38,14 +38,14 @@ export class GitLogs {
     public async execute() {
         const authorsPerRepo: { [key: string]: { [key: string]: Author } } = {};
 
-        for (const repository of this.config.directory) {
+        for (let repository of this.config.directory) {
             this.printVerbose(`Updating local branches for ${repository}`, this.config.verbose);
             const process = new GitProcess(repository);
 
             this.printVerbose(process.getRemoteBranches().join('\n'), this.config.verbose);
             process.fetch(true);
             this.printVerbose(`>${process.pull(true)}`, this.config.verbose);
-
+            repository = repository.split('/').pop() as string;
             authorsPerRepo[repository] = {};
             this.printVerbose(`Getting logs for ${repository}`, this.config.verbose);
             const output = process.getLogs(this.config.since, this.config.until, this.config.authors).replace(/b"/g, '');
@@ -113,6 +113,7 @@ export class GitLogs {
                 if (readComments && splittedLine.length > 0) {
                     currentDetails.comments += splittedLine.join(' ') + ' ';
                     currentDetails.comments = currentDetails.comments.replace(' -	-', ' -');
+                    currentDetails.comments = currentDetails.comments.replace(/,/g, '');
                 }
             }
         }
