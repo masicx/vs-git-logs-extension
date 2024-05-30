@@ -37,15 +37,12 @@ function runScript(since: string) {
 		return;
 	}
 
-	let authorCommand = vscode.workspace.getConfiguration('git-logs-extension').get('author') as string;
+	let author = vscode.workspace.getConfiguration('git-logs-extension').get('author') as string;
 
-	if (authorCommand) {
-		authorCommand = " -a " + authorCommand;
-	}
 	const paths = vscode.workspace.workspaceFolders.map(p => p.uri?.path.replace('/', '')); // remove the first '/'
 
 	new GitLogs({ since,
-		authors: authorCommand,
+		authors: author,
 		directory: paths,
 		verbose: true,
 		csv_config: vscode.workspace.getConfiguration('git-logs-extension').get('csvColumns')}).execute();

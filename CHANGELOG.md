@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.1.3] - 2024-05-30
+
+### Fix
+- Filter by author was not properly working.
+
 ## [1.1.2] - 2024-05-29
 
 ### Fix
