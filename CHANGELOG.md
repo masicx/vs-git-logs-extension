@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.2.0] - 2024-06-02
+
+### Added
+- Added new configuration for csv generation.
+- Added output channel for git logs.
+- Added new button for opening the output channel registered as 'Git Logs Report'.
+![Git logs report](https://github.com/masicx/vs-git-logs-extension/raw/master/assets/image-1.png)
+- Updated configuration schema.
+
 ## [1.1.3] - 2024-05-30
 
 ### Fix

@@ -1,8 +1,8 @@
 {
   "name": "git-logs-extension",
-  "displayName": "git logs extension",
+  "displayName": "Git logs report",
   "description": "Pull the changes and generates the logs for all the developers. Use a default yml file to configurate the output.",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "icon": "assets/icon.jpeg",
   "engines": {
     "vscode": "^1.89.0"
@@ -25,42 +25,83 @@
       }
     ],
     "configuration": {
-      "title": "Git logs extension configuration",
+      "title": "Git logs configuration",
       "properties": {
-        "git-logs-extension.author": {
+        "git-logs-extension.filters.author": {
           "type": "string",
           "default": "",
-          "description": "Author name"
+          "description": "Default author name used to filter commits"
         },
-        "git-logs-extension.since": {
+        "git-logs-extension.filters.askForAuthor": {
+          "type": "boolean",
+          "default": false,
+          "description": "Always display a dialog to ask for author name"
+        },
+        "git-logs-extension.filters.since": {
           "type": "string",
           "default": "today",
-          "description": "Since date"
+          "description": "Date where it is going to start to generate the report"
         },
-        "git-logs-extension.until": {
+        "git-logs-extension.filters.until": {
           "type": "string",
           "default": "today",
-          "description": "Until date"
+          "description": "Date where it is going to end to generate the report"
         },
-        "git-logs-extension.csvColumns": {
-          "type": "object",
-          "default": {
-            "Activity date": "date",
-            "Branch": "branch",
-            "Comments": "comments",
-            "Developer": "authorName",
-            "Repo name": "repoName",
-            "Total # files Changed": "filesChanged",
-            "Total # of Deletions": "deletions",
-            "Total # of Insertions": "insertions",
-            "Total # of commits": "commits"
-          },
+        "git-logs-extension.csv.columns": {
+          "type": "array",
+          "default": [
+            {
+              "order": 3,
+              "key": "Activity date",
+              "value": "date"
+            },
+            {
+              "order": 1,
+              "key": "Branch",
+              "value": "branch"
+            },
+            {
+              "order": 4,
+              "key": "Comments",
+              "value": "comments"
+            },
+            {
+              "order": 2,
+              "key": "Developer",
+              "value": "authorName"
+            },
+            {
+              "order": 5,
+              "key": "Repo name",
+              "value": "repoName"
+            },
+            {
+              "order": 6,
+              "key": "Total # files Changed",
+              "value": "filesChanged"
+            },
+            {
+              "order": 7,
+              "key": "Total # of Deletions",
+              "value": "deletions"
+            },
+            {
+              "order": 8,
+              "key": "Total # of Insertions",
+              "value": "insertions"
+            },
+            {
+              "order": 9,
+              "key": "Total # of commits",
+              "value": "commits"
+            }
+          ],
           "description": "CSV columns"
         },
-        "git-logs-extension.openGeneratedCSV": {
+        "git-logs-extension.csv.autoOpen": {
           "type": "boolean",
           "default": true,
-          "description": "Show generated CSV"
+          "description": "If this value is set, the generated CSV file will be opened. By default, it will be opened."
         }
       }
     }

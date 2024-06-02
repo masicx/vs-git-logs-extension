@@ -13,30 +13,30 @@ import { Details } from './details';
  * @param {object} csvColumns - The YAML file path for CSV creation.
  * @return {object} The CSV row data.
  */
-export function getRowData(repoName: string, authorName: string, date: string, details: Details, csvColumns: object): { [key: string]: any } {
+export function getRowData(repoName: string, authorName: string, date: string, details: Details, csvColumns: Array<any>): { [key: string]: any } {
     const data: { [key: string]: any } = {};
 
-    for (const [key, value] of Object.entries(csvColumns)) {
-        if (value === 'repoName') {
-            data[key] = repoName;
-        } else if (value === 'branch') {
-            data[key] = details.branch;
-        } else if (value === 'authorName') {
-            data[key] = authorName;
-        } else if (value === 'date') {
-            data[key] = date;
-        } else if (value === 'commits') {
-            data[key] = details.commits;
-        } else if (value === 'filesChanged') {
-            data[key] = details.filesChanged;
-        } else if (value === 'insertions') {
-            data[key] = details.insertions;
-        } else if (value === 'deletions') {
-            data[key] = details.deletions;
-        } else if (value === 'comments') {
-            data[key] = details.comments;
+    for (const column of csvColumns) {
+        if (column.value === 'repoName') {
+            data[column.key] = repoName;
+        } else if (column.value === 'branch') {
+            data[column.key] = details.branch;
+        } else if (column.value === 'authorName') {
+            data[column.key] = authorName;
+        } else if (column.value === 'date') {
+            data[column.key] = date;
+        } else if (column.value === 'commits') {
+            data[column.key] = details.commits;
+        } else if (column.value === 'filesChanged') {
+            data[column.key] = details.filesChanged;
+        } else if (column.value === 'insertions') {
+            data[column.key] = details.insertions;
+        } else if (column.value === 'deletions') {
+            data[column.key] = details.deletions;
+        } else if (column.value === 'comments') {
+            data[column.key] = details.comments;
         } else {
-            data[key] = value;
+            data[column.key] = column.value;
         }
     }
 
@@ -50,8 +50,8 @@ export function getRowData(repoName: string, authorName: string, date: string, d
  * @param {object} data - The data to be written to the CSV file.
  * @param {string} yamlFile - The YAML file path for CSV creation.
  */
-export function createCsv(fileName: string, data: any, csvColumns: object) {
-    const fieldNames = Object.keys(csvColumns);
+export function createCsv(fileName: string, data: any, csvColumns: Array<any>) {
+    const fieldNames = csvColumns.map((p: any) => p.key);
     const writer = createWriteStream(fileName, { encoding: 'utf8' });
     fieldNames.forEach(field => writer.write(field + ', '));
     writer.write('\n');

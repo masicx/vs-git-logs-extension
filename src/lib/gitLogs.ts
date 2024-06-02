@@ -1,9 +1,9 @@
 import { Author } from './author';
 import { GitProcess } from './gitProcess';
 import { createCsv } from './csvFile';
-import { readFileSync } from 'fs';
 import { join } from 'path';
 import { Details } from './details';
+import * as vscode from 'vscode';
 
 export type Config = {
     directory: string[];
@@ -11,27 +11,27 @@ export type Config = {
     since: string;
     until: string;
     authors: string;
-    csv_config: object;
+    csv_config: object[];
 };
 
 export class GitLogs {
     private config: Config;
 
-    constructor(config: Partial<Config>) {
+    constructor(config: Partial<Config>, private outputChannel: vscode.OutputChannel) {
         this.config = {
             directory: [],
             verbose: false,
             since: '',
             until: '',
             authors: '',
-            csv_config: {},
+            csv_config: [],
             ...config
         };
     }
 
-    private printVerbose(value: string, isVerbose: boolean) {
-        if (isVerbose) {
-            console.log(`======> ${value}`);
+    private printVerbose(value: string) {
+        if (this.config.verbose && this.outputChannel) {
+            this.outputChannel.appendLine(`=> ${value}`);
         }
     }
 
@@ -39,19 +39,19 @@ export class GitLogs {
         const authorsPerRepo: { [key: string]: { [key: string]: Author } } = {};
 
         for (let repository of this.config.directory) {
-            this.printVerbose(`Updating local branches for ${repository}`, this.config.verbose);
+            this.printVerbose(`Updating local branches for ${repository}`);
             const process = new GitProcess(repository);
 
-            this.printVerbose(process.getRemoteBranches().join('\n'), this.config.verbose);
+            this.printVerbose(process.getRemoteBranches().join('\n'));
             process.fetch(true);
-            this.printVerbose(`>${process.pull(true)}`, this.config.verbose);
+            this.printVerbose(`>${process.pull(true)}`);
             repository = repository.split('/').pop() as string;
             authorsPerRepo[repository] = {};
-            this.printVerbose(`Getting logs for ${repository}`, this.config.verbose);
+            this.printVerbose(`Getting logs for ${repository}`);
             const output = process.getLogs(this.config.since, this.config.until, this.config.authors).replace(/b"/g, '');
 
             if (output.split('\n').length <= 1) {
-                this.printVerbose(`>No changes detected!`, this.config.verbose);
+                this.printVerbose(`>No changes detected!`);
                 continue;
             }
 
@@ -65,8 +65,8 @@ export class GitLogs {
                 const splittedLine = line.replace(/| /g, '').trim().split(' ');
                 if (/^commit/g.test(line.replace(/b'/g, ''))) {
                     currentBranch = splittedLine[1].split('\t')[1].replace('refs/heads/', '');
-                    this.printVerbose(`line: ${line}`, this.config.verbose);
-                    this.printVerbose(`Branch name: ${currentBranch}`, this.config.verbose);
+                    this.printVerbose(`line: ${line}`);
+                    this.printVerbose(`Branch name: ${currentBranch}`);
                     continue;
                 }
 
@@ -118,10 +118,10 @@ export class GitLogs {
             }
         }
 
-        this.printVerbose(`Creating CSV file`, this.config.verbose);
+        this.printVerbose(`Creating CSV file`);
         const filepath = join(this.config.directory[0], 'gitlogs.csv');
-        this.printVerbose(filepath, this.config.verbose);
-        await createCsv(filepath, authorsPerRepo, this.config.csv_config);
+        this.printVerbose(filepath);
+        await createCsv(filepath, authorsPerRepo, this.config.csv_config.sort((a: any, b: any) => a.order - b.order));
     }
 }
 
