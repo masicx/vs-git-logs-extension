@@ -40,12 +40,12 @@ async function runScript(since: string, author: string) {
 	const outputChannel = vscode.window.createOutputChannel("Git Logs Report");
 
 	new GitLogs({
-			since,
-			authors: author,
-			directory: paths,
-			verbose: true,
-			csv_config: vscode.workspace.getConfiguration('git-logs-extension').get('csv.columns')
-		},
+		since,
+		authors: author,
+		directory: paths,
+		verbose: true,
+		csv_config: vscode.workspace.getConfiguration('git-logs-extension').get('csv.columns')
+	},
 		outputChannel
 	).execute();
 

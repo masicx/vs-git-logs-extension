@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.2.1] - 2024-06-16
+
+### Fix
+- Fix date formatting. Removed the time from the date and added the year.
+
 ## [1.2.0] - 2024-06-02
 
 ### Added

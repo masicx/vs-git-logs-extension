@@ -79,7 +79,9 @@ export class GitLogs {
                     continue;
                 } else if (/^Date:/g.test(splittedLine[0])) {
                     readComments = true;
-                    currentDate = splittedLine.slice(4, 7).join(' ');
+                    var dateInfo = splittedLine.slice(4, 8);
+                    dateInfo.splice(2,1);
+                    currentDate = dateInfo.join(' ');
 
                     if (!currentAuthor.details[currentDate]) {
                         currentAuthor.details[currentDate] = {};
