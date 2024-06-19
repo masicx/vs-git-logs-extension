@@ -1,7 +1,7 @@
 {
   "name": "git-logs-extension",
   "displayName": "Git logs report",
-  "description": "Pull the changes and generates the logs for all the developers. Use a default yml file to configurate the output.",
+  "description": "Pull the changes and generates the logs for all the developers and creates a CSV file.",
   "version": "1.2.1",
   "icon": "assets/icon.jpeg",
   "engines": {
